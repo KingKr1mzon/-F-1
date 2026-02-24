@@ -55,7 +55,7 @@ result — итоговый список из true и false.
 
 ### Тестирование
 
-![alt text](screenshots1/image.png)
+![alt text](screenshots2/image.png)
 
 # Задание 2. Рекурсия
 

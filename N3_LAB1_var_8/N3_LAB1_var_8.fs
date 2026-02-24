@@ -83,23 +83,39 @@ let rec mainMenu (currentList: int list) =
         printf "Число: "
         let temp = int(Console.ReadLine())
         printf "Позиция: "
-        let index1 = int(Console.ReadLine())
-        mainMenu (addIndex index1 temp currentList)
+        let index = int(Console.ReadLine())
+        if index < 0 then
+            printfn "Ошибка: Некорректно введен индекс!"
+            mainMenu currentList
+        else
+            mainMenu (addIndex index temp currentList)
     | "4" ->
-        mainMenu (removeStart currentList)
+        if List.isEmpty currentList then
+            printfn "Ошибка: Список пуст, удаление невозможно."
+            mainMenu currentList
+        else
+            mainMenu (removeStart currentList)
     | "5" -> 
         mainMenu (removeEnd currentList)
     | "6" ->
         printf "Позиция: "
         let index = int(Console.ReadLine())
-        mainMenu (removeIndex index currentList)
+        if index < 0 || index >= List.length currentList then
+            printfn "Ошибка: Индекс вне диапазона! (Допустимо: 0..%d)" (currentList.Length - 1)
+            mainMenu currentList
+        else
+            mainMenu (removeIndex index currentList)
     | "7" ->
         printf "Индекс: "
         let i = int (Console.ReadLine())
-        match getIndex i currentList with
-        | Some x -> printfn "Число под номером %d: %d" i x
-        | None -> printfn "Ошибка: Индекс вне диапазона"
-        mainMenu currentList
+        if i < 0 || i >= List.length currentList then
+            printfn "Ошибка: Индекс %d вне диапазона (0..%d)" i (currentList.Length - 1)
+            mainMenu currentList
+        else
+            match getIndex i currentList with
+            | Some x -> printfn "Число под номером %d: %d" i x
+            | None -> printfn "Ошибка: Элемент не найден"
+            mainMenu currentList
     | "8" ->
         mainMenu (merger currentList [10; 20; 30])
     | "exit" | "Exit" | "EXIT"  ->

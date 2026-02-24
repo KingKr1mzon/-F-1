@@ -7,7 +7,7 @@
 open System
 
 let rec buildList digits list =
-    if digits = 0 then
+    if digits <= 0 then
         list
     else
         printf "Введите число: "
